@@ -17,23 +17,32 @@
 				    <div class="panel-body">
 		<form id="add_form" onsubmit="addUser(); return false;" method="POST" action="">
   <div class="row-fluid">
-     <div class="col-md-4">
+     <div class="col-md-6">
        <div class="form-group">
           <label for="u_user">Username</label>
-          <input type="text" class="form-control" id="u_user">
+          <input type="text" class="form-control" name="username" id="u_user">
      </div>
    </div>
-   <div class="col-md-4">
+   <div class="col-md-6">
       <div class="form-group">
           <label for="u_email">Email</label>
           <input type="text" class="form-control" id="u_email" required>
       </div>
     </div>
-  <div class="col-md-4">
+    </div>
+  <div class="row-fluid">
+  <div class="col-md-6">
     <div class="form-group">
-      <label for="u_pass">Password</label>
+      <label for="">Password</label>
+       <input type="password" class="form-control" id="" required>
+   </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="u_pass">Confirm-Password</label>
        <input type="password" class="form-control" id="u_pass" required>
    </div>
+  </div>
   </div>
   <div class="row-fluid">
     <div class="col-md-6">
@@ -62,5 +71,6 @@
   </div>
   </div>
   </div>
+
   </body>
   </html>
