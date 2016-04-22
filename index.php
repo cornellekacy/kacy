@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="asset/css/bootstrap.min.css">
 
       <!-- plugins -->
+      <link rel="stylesheet" href="asset/css/bootstrapValidator.css"/>
       <link rel="stylesheet" type="text/css" href="asset/css/plugins/font-awesome.min.css"/>
       <link rel="stylesheet" type="text/css" href="asset/css/plugins/animate.min.css"/>
   <link href="asset/css/style.css" rel="stylesheet">
@@ -234,8 +235,10 @@
        <!-- end: Mobile -->
  
     <!-- start: Javascript -->
+
+    <script type="text/javascript" src="asset/js/jquery-1.10.2.min.js"></script>
+     <script type="text/javascript" src="asset/js/bootstrapValidator.js"></script>
     <script src="asset/js/javascript.js"></script>
-    <script src="asset/js/jquery-2.1.4.min.js"></script>
     <script src="asset/js/jquery.ui.min.js"></script>
     <script src="asset/js/bootstrap.min.js"></script>
    
