@@ -142,6 +142,7 @@ function ChangeUserPassword(){
  xmlhttp.send(fd);
 }
 
+//getUser();
 function getUser(p_username){
 
    var url ="ws/webservice.php" ;
@@ -171,15 +172,27 @@ function getUser(p_username){
         // // window.location.href ='index.php';
 
 
-        // var form = document.getElementById('update_user');
+         // var form = document.getElementById('update_user');
 
-        // for (var i = 0; i < response.length; i++) {
-        //      document.getElementById("upd_user").value = response[i].username;
-        //      document.getElementById("upd_email").value = response[i].email;
-        //      document.getElementById("upd_fname").value = response[i].firstname;
-        //      document.getElementById("upd_lname").value = response[i].lastname;           
+         // for (var i = 0; i < response.length; i++) {
+         //      document.getElementById("upd_user").value = response[i].username;
+         //      document.getElementById("upd_email").value = response[i].email;
+         //      document.getElementById("upd_fname").value = response[i].firstname;
+         //      document.getElementById("upd_lname").value = response[i].lastname;           
            
-        // }
+         // }
+
+        var tbody = document.getElementById('user');
+
+        for (var i = 0; i < response.length; i++) {
+          var row = document.createElement('tr');     
+
+           var name_td = document.createElement('td');
+           name_td.innerHTML =  response[i].username;
+           row.appendChild(name_td);
+
+           if (tbody) tbody.appendChild(row);
+        }
       }
     }
 

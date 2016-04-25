@@ -20,6 +20,7 @@
       <link rel="stylesheet" type="text/css" href="asset/css/plugins/font-awesome.min.css"/>
       <link rel="stylesheet" type="text/css" href="asset/css/plugins/animate.min.css"/>
   <link href="asset/css/style.css" rel="stylesheet">
+      <script type="text/javascript" src="asset/js/jquery-1.10.2.min.js"></script>
   <!-- end: Css -->
 
   <link rel="shortcut icon" href="asset/img/logomi.png">
@@ -236,7 +237,7 @@
  
     <!-- start: Javascript -->
 
-    <script type="text/javascript" src="asset/js/jquery-1.10.2.min.js"></script>
+
      <script type="text/javascript" src="asset/js/bootstrapValidator.js"></script>
     <script src="asset/js/javascript.js"></script>
     <script src="asset/js/jquery.ui.min.js"></script>

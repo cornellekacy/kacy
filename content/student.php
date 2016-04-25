@@ -108,9 +108,10 @@
         <img id="blah" src="" alt="your image" height="60" width="60" style="border: none;"  />
     </form>
     </div>
+    </div>
 
 
-  </div><br>
+  </div><br><br>
 			<button id="flip" type="button" class="btn btn-success" style="margin-left: 15px;">Add Guardian</button>
 			<div id="pane">
 
@@ -176,7 +177,7 @@
   </div>
   </div>
   </div>
-  </div>
+  </div><br>
 			   
 			   <div class="row-fluid">
 			       <div class="col-md-6">
