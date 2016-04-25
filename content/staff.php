@@ -5,8 +5,15 @@
 	<style>
 	</style>
 	<script>
-  
+ $(document).ready(function () {
+                
+                $('#dob').datepicker({
+                    format: "yyyy/mm/dd"
+                });  
+            
+            });
 	</script>
+
 	</head>
 	<body>
 
@@ -335,5 +342,7 @@ $(document).ready(function() {
 });
 </script>
         <script src="asset/js/javascript.js"></script>
+          <script type="text/javascript" src="asset/js/datepicker.js"></script>
+      <script type="text/javascript" src="asset/js/jquery-1.10.2.min.js"></script>
  	</body>
 </html>
