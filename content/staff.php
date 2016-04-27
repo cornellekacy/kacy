@@ -24,21 +24,28 @@
 				<div class="panel-body">
   <form id="form0" onsubmit="addStaff(); return false;" method="POST">
   <div class="row-fluid">
-   <div class="col-md-4">
+  <div class="col-md-3">
+    <div class="form-group">
+       <label for="tittle">Tittle</label>
+       <input type="text" class="form-control" id="tittle" name="tittle">
+    </div>
+  </div>
+  
+   <div class="col-md-3">
      <div class="form-group">
         <label>First Name</label>
         <input type="text" class="form-control" id="fname" name="firstname">
     </div>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="form-group">
        <label for="lname">Last Name</label>
        <input type="text" class="form-control" id="lname" name="lastname">
     </div>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="form-group">
         <label for="email1">Email</label>
         <input type="email" class="form-control" id="email" name="email">

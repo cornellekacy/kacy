@@ -8,6 +8,7 @@ function loadlookup(){
   // getmaritalstatus();
   getstaffstatus();
   getclassmaster();
+  viewStudents();
   // viewstaffs();
   // getacademic();
   // getMedicalstatus();
@@ -227,7 +228,7 @@ function logoutUser(p_userName){
       if (response) {
         console.log(response);
          // alert('logout');
-          window.location.href ='login.html';
+          window.location.href ='login.php';
       }
     }
 
@@ -284,16 +285,16 @@ function updateUser(){
  xmlhttp.send(fd);
 }
 
-function getListofstudentinclass(){
-  var classroom = document.getElementById('p_classroom_id').value;
+function getClasslistperclass(){
+  var classroom = document.getElementById('class_room').value;
   var academicyear = document.getElementById('p_academic_id').value;
 
 
   var url ="ws/webservice.php" ;
   var fd = new FormData();
 
-    fd.append('op', 'getListofstudentinclass');
-    fd.append('p_classroom_id', classroom);
+    fd.append('op', 'getClasslistperclass');
+    fd.append('class_room', classroom);
     fd.append('p_academic_id', academicyear);
 
 
@@ -313,10 +314,37 @@ function getListofstudentinclass(){
       }
       if (response) {
         console.log(response);
-        document.getElementById("update_user").reset();
-        alert('User SUCCESSFULLY Updated');
+        // document.getElementById("action").reset();
+         // alert('User SUCCESSFULLY Updated');
         
-        // // window.location.href ='index.php';
+         // window.location.href ='content/list_of_student.php';
+
+        var tbody = document.getElementById('per_class');
+        if(tbody) tbody.innerHTML="";
+
+        for (var i = 0; i < response.length; i++) {
+          var row = document.createElement("tr");
+
+          var name_td = document.createElement("td");
+          name_td.innerHTML = response[i].fullname;
+          row.appendChild(name_td);
+
+           var class_td = document.createElement("td");
+          class_td.innerHTML = response[i].classname;
+          row.appendChild(class_td);
+
+          var gender_td = document.createElement("td");
+          gender_td.innerHTML = response[i].gender_id;
+          row.appendChild(gender_td);
+
+          var year_td = document.createElement("td");
+          year_td.innerHTML = response[i].schoolyear;
+          row.appendChild(year_td);
+
+          if (tbody) tbody.appendChild(row);
+          
+      
+        }
       }
     }
 
@@ -326,16 +354,16 @@ function getListofstudentinclass(){
  xmlhttp.send(fd);
 }
 
-function Generallistinclasses(){
-  var g_class = document.getElementById('p_Clid').value;
+function Generalclasslist(){
+  var g_class = document.getElementById('p_classroom_id').value;
   var academicyear = document.getElementById('p_academic_id').value;
 
 
    var url ="ws/webservice.php" ;
    var fd = new FormData();
 
-    fd.append('op', 'Generallistinclasses');
-    fd.append('p_Clid', g_class);
+    fd.append('op', 'Generalclasslist');
+    fd.append('p_classroom_id', g_class);
     fd.append('p_academic_id', academicyear);
 
 
@@ -350,15 +378,43 @@ function Generallistinclasses(){
       }catch(e) {
         console.error(this.responseText);
         var responseText = this.responseText;
-        alert ('Registration failed BECAUSE  ' + responseText);
+        // alert ('Registration failed BECAUSE  ' + responseText);
         
       }
       if (response) {
         console.log(response);
-        document.getElementById("update_user").reset();
-        alert('User SUCCESSFULLY Updated');
+        // document.getElementById("gen_list").reset();
+        // alert('User SUCCESSFULLY Updated');
         
         // // window.location.href ='index.php';
+
+
+        var tbody = document.getElementById('list');
+        if(tbody) tbody.innerHTML="";
+
+        for (var i = 0; i < response.length; i++) {
+          var row = document.createElement("tr");
+
+          var name_td = document.createElement("td");
+          name_td.innerHTML = response[i].fullname;
+          row.appendChild(name_td);
+
+           var class_td = document.createElement("td");
+          class_td.innerHTML = response[i].classname;
+          row.appendChild(class_td);
+
+          var gender_td = document.createElement("td");
+          gender_td.innerHTML = response[i].gender_id;
+          row.appendChild(gender_td);
+
+          var year_td = document.createElement("td");
+          year_td.innerHTML = response[i].schoolyear;
+          row.appendChild(year_td);
+
+          if (tbody) tbody.appendChild(row);
+          
+      
+        }
       }
     }
 
@@ -683,7 +739,7 @@ function getClasses() {
       if (response) {
         console.log(response);
 
-        var f = document.getElementById('class_room');
+        var f = document.getElementById('class_room1');
         var c = document.getElementById('u_class');
         var e = document.getElementById('p_classroom_id');
 
@@ -705,9 +761,9 @@ function getClasses() {
         }
 
          for (var i=0; i < response.length; i++) {
-           if(f) f.options[i+1] = new Option(response[i].classname, response[i].Clid, false, false);
-           if(c) c.options[i+1] = new Option(response[i].classname, response[i].Clid, false, false);
-           if(e) e.options[i+1] = new Option(response[i].classname, response[i].Clid, false, false);
+           if(f) f.options[i+1] = new Option(response[i].classname1, response[i].Clid, false, false);
+           if(c) c.options[i+1] = new Option(response[i].classname1, response[i].Clid, false, false);
+           if(e) e.options[i+1] = new Option(response[i].classname1, response[i].Clid, false, false);
 
             
          }
@@ -722,10 +778,61 @@ function getClasses() {
  xmlhttp.send(param4);
 }
 
-getClasses();
-function getSubclass() {
+ getSubclass();
+ function getSubclass() {
+   var url ="ws/webservice.php" ; 
+     var param4 = "op=getSubclass";
+
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+   if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+    {
+       var response;
+       try {
+      
+         response = JSON.parse(xmlhttp.responseText);
+       }catch(e) {
+         console.error(this.responseText);
+       }
+       if (response) {
+         console.log(response);
+
+         var f = document.getElementById('class_room');
+
+
+
+         if (f) {
+             f.length = 0;
+             f.options[0] = new Option('select', "", false, false);
+         }
+
+        
+      
+
+          for (var i=0; i < response.length; i++) {
+            if(f) f.options[i+1] = new Option(response[i].classname, response[i].classId, false, false);
+
+
+            
+          }
+         
+     }
+   }
+
+  };
+
+  xmlhttp.open('POST', url, true);
+  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xmlhttp.send(param4);
+ }
+
+
+function getSubClass_of_class(p_Clid) {
+
+var p_Clid = document.getElementById('class_room1').value;
+
   var url ="ws/webservice.php" ; 
-    var param4 = "op=getSubclass";
+    var param4 = "op=getSubClass_of_class&cid="+ p_Clid;
 
  var xmlhttp = new XMLHttpRequest();
  xmlhttp.onreadystatechange = function() {
@@ -741,20 +848,24 @@ function getSubclass() {
       if (response) {
         console.log(response);
 
-        var f = document.getElementById('class_room');
+              var f = document.getElementById('class_room');
 
 
-        if (f) {
-            f.length = 0;
-            f.options[0] = new Option('select...', "", false, false);
-        }
 
+         if (f) {
+             f.length = 0;
+             f.options[0] = new Option('select...', "", false, false);
+         }
 
-         for (var i=0; i < response.length; i++) {
-           if(f) f.options[i+1] = new Option(response[i].classname, response[i].classId, false, false);
+        
+      
+
+          for (var i=0; i < response.length; i++) {
+            if(f) f.options[i+1] = new Option(response[i].classname, response[i].classId, false, false);
+
 
             
-         }
+          }
          
     }
   }
@@ -765,6 +876,7 @@ function getSubclass() {
  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
  xmlhttp.send(param4);
 }
+
 
 
 //insertstaff();
@@ -919,7 +1031,7 @@ function getMedicalstatus() {
 
 //insertstaff();
 function addStaff(){
-
+  var tittle = document.getElementById('tittle').value;
   var firstname = document.getElementById('fname').value;
   var lastname = document.getElementById('lname').value;
   var email = document.getElementById('email').value;
@@ -941,6 +1053,7 @@ function addStaff(){
     var url = "ws/webservice.php";
 
     fd.append('op', "addStaff");
+    fd.append('tittle', tittle);
     fd.append('fname', firstname);
     fd.append('lname', lastname);
     fd.append('email', email);
@@ -1059,7 +1172,7 @@ function getstaff(p_staffId) {
             row.appendChild(class_td);
 
            var name_td = document.createElement('td');
-           name_td.innerHTML =  response[i].firstname +" "+ response[i].lastname;
+           name_td.innerHTML =  response[i].Name;
            row.appendChild(name_td);
 
           
@@ -1258,7 +1371,7 @@ function viewstaffs() {
           row.appendChild(id_td);
 
           var name_td = document.createElement("td");
-          name_td.innerHTML = response[i].firstname  + " " + response[i].lastname;
+          name_td.innerHTML = response[i].Name;
           row.appendChild(name_td);
 
           var sex_td = document.createElement("td");
@@ -1304,7 +1417,7 @@ function viewstaffs() {
           row.appendChild(id_td);
 
           var name_td = document.createElement("td");
-          name_td.innerHTML = response[i].firstname  + " " + response[i].lastname;
+          name_td.innerHTML = response[i].Name;
           row.appendChild(name_td);
 
           var sex_td = document.createElement("td");
@@ -1584,7 +1697,7 @@ function getStudent(p_studentId) {
 
 
            var name_td = document.createElement('td');
-           name_td.innerHTML = response[i].firstname +" "+ response[i].lastname;
+           name_td.innerHTML = response[i].Name;
            row.appendChild(name_td);
 
           var class_td = document.createElement('td');
@@ -1762,7 +1875,7 @@ function getStudent(p_studentId) {
  xmlhttp.send(param6);
 }
 
-viewStudents();
+ viewStudents();
 function viewStudents() {
   var url ="ws/webservice.php" ; 
     var param6 = "op=viewStudents";
@@ -1794,7 +1907,7 @@ function viewStudents() {
           row.appendChild(id_td);
 
           var name_td = document.createElement('td');
-          name_td.innerHTML = response[i].firstname + " " + response[i].lastname;
+          name_td.innerHTML = response[i].Name;
           row.appendChild(name_td);
 
           var sex_td = document.createElement('td');
@@ -1833,7 +1946,7 @@ function viewStudents() {
           row.appendChild(id_td);
 
           var name_td = document.createElement('td');
-          name_td.innerHTML = response[i].firstname + " " + response[i].lastname;
+          name_td.innerHTML = response[i].Name;
           row.appendChild(name_td);
 
           var sex_td = document.createElement('td');
@@ -2034,3 +2147,317 @@ function deleteGuardian(p_guardianId) {
 	 xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	 xmlhttp.send(param5);
    }
+
+
+
+function addSubject() {
+
+    var subjectname = document.getElementById('subject').value;
+    var coef = document.getElementById('coef').value;
+    
+     var url ="ws/webservice.php" ; 
+    var fd = new FormData();
+
+    fd.append("op", "addSubject");
+    fd.append("subject", subjectname);
+    fd.append("coef", coef);
+
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+       {
+    var response;
+    try {
+      
+        response = JSON.parse(xmlhttp.responseText);
+        }    
+   catch(e) {
+        console.error(this.responseText);
+        }
+    if (response) {
+        console.log(response);
+        
+        }
+     }
+
+   };
+
+   xmlhttp.open('POST', url, true);
+   xmlhttp.send(fd);
+   }
+
+
+   function viewSubjects() {
+    
+    var url ="ws/webservice.php" ; 
+    var fd = new FormData();
+
+    fd.append("op", "viewSubjects");
+    
+
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+       {
+    var response;
+    try {
+      
+        response = JSON.parse(xmlhttp.responseText);
+        }    
+   catch(e) {
+        console.error(this.responseText);
+        }
+    if (response) {
+        console.log(response);
+        
+        }
+     }
+
+   };
+
+   xmlhttp.open('POST', url, true);
+   xmlhttp.send(fd);
+   }
+
+   function removeSubject(p_subjectId) {
+    
+    var url ="ws/webservice.php" ; 
+    var fd = new FormData();
+
+    fd.append("op", "removeSubject");
+    fd.append("rid", p_subjectId);
+
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+       {
+    var response;
+    try {
+      
+        response = JSON.parse(xmlhttp.responseText);
+        }    
+   catch(e) {
+        console.error(this.responseText);
+        }
+    if (response) {
+        console.log(response);
+        
+        }
+     }
+
+   };
+
+   xmlhttp.open('POST', url, true);
+   xmlhttp.send(fd);
+   }
+
+   getExamtype();
+   function getExamtype() {
+    
+    var url ="ws/webservice.php" ; 
+    var fd = new FormData();
+
+    fd.append("op", "getExamtype");
+
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+       {
+    var response;
+    try {
+      
+        response = JSON.parse(xmlhttp.responseText);
+        }    
+   catch(e) {
+        console.error(this.responseText);
+        }
+    if (response) {
+        console.log(response);
+
+         var f = document.getElementById('type');
+         var e = document.getElementById('examid');
+
+
+
+         if (f) {
+             f.length = 0;
+             f.options[0] = new Option('select...', "", false, false);
+         }
+
+          if (e) {
+             e.length = 0;
+             e.options[0] = new Option('select...', "", false, false);
+         }
+
+        
+      
+
+          for (var i=0; i < response.length; i++) {
+            if(f) f.options[i+1] = new Option(response[i].Name, response[i].examtypeId, false, false);
+            if(e) e.options[i+1] = new Option(response[i].Name, response[i].examtypeId, false, false);
+  
+          }
+        
+        }
+     }
+
+   };
+
+   xmlhttp.open('POST', url, true);
+   xmlhttp.send(fd);
+   }
+
+   function addExamtimetable() {
+
+    var examId = document.getElementById('exam').value;
+    var exam_type_id = document.getElementById('type').value;
+    var name = document.getElementById('name').value;
+    var start_date = document.getElementById('start').value;
+    var end_date = document.getElementById('end').value;
+    
+    var url ="ws/webservice.php" ; 
+    var fd = new FormData();
+
+    fd.append("op", "addExamtimetable");
+    fd.append("exam", examId);
+    fd.append("type", exam_type_id);
+    fd.append("name", name);
+    fd.append("start", start_date);
+    fd.append("end", end_date);
+
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+       {
+    var response;
+    try {
+      
+        response = JSON.parse(xmlhttp.responseText);
+        }    
+   catch(e) {
+        console.error(this.responseText);
+        }
+    if (response) {
+        console.log(response);
+        
+        }
+     }
+
+   };
+
+   xmlhttp.open('POST', url, true);
+   xmlhttp.send(fd);
+   }
+
+   function addExamMark() {
+
+    var examtypeId = document.getElementById('typeid').value;
+    var student_id = document.getElementById('student').value;
+    var subjects_id = document.getElementById('subject').value;
+    var seq_1 = document.getElementById('seq_1').value;
+    var seq_2 = document.getElementById('seq_2').value;
+    
+    var url ="ws/webservice.php" ; 
+    var fd = new FormData();
+
+    fd.append("op", "addExamMark");
+    fd.append("typeid", examtypeId);
+    fd.append("student", student_id);
+    fd.append("subject", subjects_id);
+    fd.append("seq_1", seq_1);
+    fd.append("seq_2", seq_2);
+
+
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+       {
+    var response;
+    try {
+      
+        response = JSON.parse(xmlhttp.responseText);
+        }    
+   catch(e) {
+        console.error(this.responseText);
+        }
+    if (response) {
+        console.log(response);
+        
+        }
+     }
+
+   };
+
+   xmlhttp.open('POST', url, true);
+   xmlhttp.send(fd);
+   }
+
+   function viewMarks() {
+    
+    var url ="ws/webservice.php" ; 
+    var fd = new FormData();
+
+    fd.append("op", "viewMarks");
+
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+       {
+    var response;
+    try {
+      
+        response = JSON.parse(xmlhttp.responseText);
+        }    
+   catch(e) {
+        console.error(this.responseText);
+        }
+    if (response) {
+        console.log(response);
+        
+        }
+     }
+
+   };
+
+   xmlhttp.open('POST', url, true);
+   xmlhttp.send(fd);
+   }
+
+
+    function getMark() {
+    
+    var url ="ws/webservice.php" ; 
+    var fd = new FormData();
+
+    fd.append("op", "getMark");
+    fd.append("gid", p_student_id);
+
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+       {
+    var response;
+    try {
+      
+        response = JSON.parse(xmlhttp.responseText);
+        }    
+   catch(e) {
+        console.error(this.responseText);
+        }
+    if (response) {
+        console.log(response);
+        
+        }
+     }
+
+   };
+
+   xmlhttp.open('POST', url, true);
+   xmlhttp.send(fd);
+   }
+
+
+
+
+
+

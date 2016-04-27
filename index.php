@@ -20,7 +20,6 @@
       <link rel="stylesheet" type="text/css" href="asset/css/plugins/font-awesome.min.css"/>
       <link rel="stylesheet" type="text/css" href="asset/css/plugins/animate.min.css"/>
   <link href="asset/css/style.css" rel="stylesheet">
-      <script type="text/javascript" src="asset/js/jquery-1.10.2.min.js"></script>
   <!-- end: Css -->
 
   <link rel="shortcut icon" href="asset/img/logomi.png">
@@ -137,7 +136,7 @@
                         <ul class="nav nav-list tree">
                         <li ng-class="{ selected: isActive('/adduser')}"><a href="#/adduser">Add User</a></li>
                         <li ng-class="{ selected: isActive('/change_password')}"><a href="#/change_password">Change Password</a></li>
-                        <li ng-class="{ selected: isActive('/update_user')}"><a href="#/update_user" onclick="getUser();"">Update User</a></li>
+                        <li ng-class="{ selected: isActive('/update_user')}"><a href="#/update_user">Update User</a></li>
                       </ul>
                     </li>
 
@@ -165,7 +164,7 @@
                     <ul class="nav nav-list tree">
                     <li ng-class="{ selected: isActive('/student_enrollment')}"><a href="#/staff_enrollment" onclick="viewstaffs();">
                     Staff enrollment</a></li>
-                    <li ng-class="{ selected: isActive('/student_enrollment')}"><a  href="#/student_enrollment" onclick="viewStudent();">
+                    <li ng-class="{ selected: isActive('/student_enrollment')}"><a  href="#/student_enrollment" onclick="viewStudents();">
                     Student Enrolment</a></li>    
                   </ul>
                 </li>
@@ -173,8 +172,12 @@
                 <li class="ripple"><a class="tree-toggle nav-header">
                     <span class="fa fa-pencil-square"></span> Compute Marks  <span class="fa-angle-right fa right-arrow text-right"></span> </a>
                     <ul class="nav nav-list tree">
-                    <li><a href="">Per Class</a></li>
-                    <li><a href="">Per</a></li>
+                    <li><a href="">View Marks</a></li>
+                    <li><a href="">Exam Result</a></li>
+                    <li><a href="">View Subjects</a></li>
+                    <li><a href="">Get Mark</a></li>
+                    
+                    
                   </ul>
                 </li> 
 
@@ -237,7 +240,8 @@
  
     <!-- start: Javascript -->
 
-
+    <script type="text/javascript" src="asset/js/jquery-1.10.2.min.js"></script>
+    <!-- <script src="asset/js/jquery.min.js"></script> -->
      <script type="text/javascript" src="asset/js/bootstrapValidator.js"></script>
     <script src="asset/js/javascript.js"></script>
     <script src="asset/js/jquery.ui.min.js"></script>

@@ -6,13 +6,13 @@
 <body>
 <div class="row-fluid">
 <div class="col-md-3"><br>
-	  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Assign Subject to Teacher</button>
+	  <button type="button" class="btn btn-info"><ng-class="{ selected: isActive('/exam_time_table')}"><a href="#/exam_time_table" style="color: white;">Add Exam Time Table</a></button>
 </div>
 <div class="col-md-3"><br>
-<button type="button" class="btn btn-info">Assign subject to class</button>
+<button type="button" class="btn btn-info"><ng-class="{ selected: isActive('/subject_class')}"><a href="#/subject_class" style="color: white;" onclick="getExamtype();">Assign subject to class</a></button>
 </div>
 <div class="col-md-3"><br>
-	<button type="button" class="btn btn-info">setup fee payment</button>
+	<button type="button" class="btn btn-info"><ng-class="{ selected: isActive('/add_exam_mark')}"><a href="#/add_exam_mark" style="color: white;" onclick="getExamtype();">Add Exam Mark</a></button>
 </div>
 <div class="col-md-3"><br>
 	<button type="button" class="btn btn-info">Remove Subject Per Class</button>

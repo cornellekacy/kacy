@@ -56,7 +56,7 @@
      }])
 
        .controller('class_listCtrl', ['$scope', function ($scope) {
-         $scope.$parent.title = "Class List";
+         $scope.$parent.title = "Generate Class List";
          $scope.$parent.img = "img/iconset-addictive-flavour-set/png/moleskine_black.png";
          $scope.$parent.showTopToggle = false;
      }])
@@ -83,6 +83,49 @@
           $scope.$parent.img = "img/iconset-addictive-flavour-set/png/moleskine_red.png";
           $scope.$parent.showTopToggle = false;
       }])
+
+       .controller('list_of_studentCtrl', ['$scope', function ($scope) {
+          $scope.$parent.title = "List of student";
+          $scope.$parent.img = "img/iconset-addictive-flavour-set/png/moleskine_red.png";
+          $scope.$parent.showTopToggle = false;
+      }])
+
+       .controller('general_class_listCtrl', ['$scope', function ($scope) {
+          $scope.$parent.title = "Generate General Class List";
+          $scope.$parent.img = "img/iconset-addictive-flavour-set/png/document-plaid-pen.png";
+          $scope.$parent.showTopToggle = false;
+      }])
+
+       .controller('list_per_classCtrl', ['$scope', function ($scope) {
+          $scope.$parent.title = "Generate List Per Class";
+          $scope.$parent.img = "img/iconset-addictive-flavour-set/png/document_pen.png";
+          $scope.$parent.showTopToggle = false;
+      }])
+
+        .controller('gen_listCtrl', ['$scope', function ($scope) {
+          $scope.$parent.title = "Generate General List";
+          $scope.$parent.img = "img/iconset-addictive-flavour-set/png/document_pen.png";
+          $scope.$parent.showTopToggle = false;
+      }])
+
+        .controller('subject_classCtrl', ['$scope', function ($scope) {
+          $scope.$parent.title = "Add subject To class";
+          $scope.$parent.img = "img/iconset-addictive-flavour-set/png/document_pen.png";
+          $scope.$parent.showTopToggle = false;
+      }])
+
+      .controller('exam_time_tableCtrl', ['$scope', function ($scope) {
+          $scope.$parent.title = "Add Exam Time Table";
+          $scope.$parent.img = "img/iconset-addictive-flavour-set/png/document_pen.png";
+          $scope.$parent.showTopToggle = false;
+      }]) 
+
+      .controller('add_exam_markCtrl', ['$scope', function ($scope) {
+          $scope.$parent.title = "Add Exam Mark";
+          $scope.$parent.img = "img/iconset-addictive-flavour-set/png/document_pen.png";
+          $scope.$parent.showTopToggle = false;
+      }])  
+ 
 
     .controller('AppCtrl', ['$scope', '$location', function ($scope, $location) {
         $scope.isActive = function (viewLocation) {

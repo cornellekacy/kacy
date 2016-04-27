@@ -22,6 +22,7 @@
 					 "getMedicalstatus"=>"getMedicalstatus",
 					 "getClasses"=>"getClasses",
 					 "getSubclass"=>"getSubclass",
+					 "getSubClass_of_class"=>"getSubClass_of_class",
 					 "deleteStudent"=>"deleteStudent",
 					 "getStudent"=>"getStudent",
 					 "addStudentGuardian"=>"addStudentGuardian",
@@ -48,8 +49,16 @@
 					 "getUser"=>"getUser",
 					 "logoutUser"=>"logoutUser",
 					 "updateUser"=>"updateUser",
-                     "getListofstudentinclass"=>"getListofstudentinclass",
-                     "Generallistinclasses"=>"Generallistinclasses",
+                     "getClasslistperclass"=>"getClasslistperclass",
+                     "Generalclasslist"=>"Generalclasslist",
+                     "addSubject"=>"addSubject",
+                     "viewSubjects"=>"viewSubjects",
+                     "removeSubject"=>"removeSubject",
+                     "getExamtype"=>"getExamtype",
+                     "addExamtimetable"=>"addExamtimetable",
+                     "addExamMark"=>"addExamMark",
+                     "viewMarks"=>"viewMarks",
+                     "getMark"=>"getMark",
 					 "Classlist"=>"Classlist");
 
 	if(!isset($opProc[$op])){
@@ -63,7 +72,7 @@
 
 	if(
 		$op == "getgendertype" || $op == "getsubjects" || $op == "getregionsoforigin" || 
-		$op == "getClasses" || $op == "getSubclass" || $op == "getmaritalstatus" ||  $op == "getstaffstatus" || $op == "getclassmaster" || 
+		$op == "getClasses" || $op == "getmaritalstatus" ||  $op == "getstaffstatus" || $op == "getclassmaster" || $op == "getSubclass" || $op == "viewSubjects" || $op == "getExamtype" || $op == "viewMarks" ||
 		$op == "viewstaffs" || $op == "viewStudents" || $op == "viewStudents" || $op == "getMedicalstatus" || $op == "getacademic" || $op == "Academicyear"){
 
 
@@ -109,15 +118,15 @@
 
 		$params = $param1.",".$param2.",".$param3.",".$param4;
 
-    }else if($op == "getListofstudentinclass"){
-		$param1 = mysqlquote($_POST['p_classroom_id']);
+    }else if($op == "getClasslistperclass"){
+		$param1 = mysqlquote($_POST['class_room']);
 		$param2 = mysqlquote($_POST['p_academic_id']);
 		
 
 		$params = $param1.",".$param2;
 
-	}else if($op == "Generallistinclasses"){
-		$param1 = mysqlquote($_POST['p_Clid']);
+	}else if($op == "Generalclasslist"){
+		$param1 = mysqlquote($_POST['p_classroom_id']);
 		$param2 = mysqlquote($_POST['p_academic_id']);
 		
 
@@ -129,6 +138,11 @@
 		$params = $param2;
 	}else if($op == "deletestaff"){
 			$param1 = mysqlquote($_POST['sid']);
+		
+		$params = $param1;
+
+	}else if($op == "getSubClass_of_class"){
+			$param1 = mysqlquote($_POST['cid']);
 		
 		$params = $param1;
 
@@ -205,7 +219,7 @@
 		
 		$params = $param1 .",". $param2 . ", " .$param3 .", " . $param4 . ", " . 
                           $param5 . ", " . 
-		          $param6. ", " . $param7 . ", " . $param8 . ", " . $param9 . ", " . 
+		                  $param6. ", " . $param7 . ", " . $param8 . ", " . $param9 . ", " . 
                           $param10. ", " . 
                           $param11 . ", " .$param12 . ", " . $param13 . ", " . $param14 . ", " . 
                           $param15 . ", " . 
@@ -223,10 +237,11 @@
 		$param8 = mysqlquote($_POST['other']);
 		
 		$params = $param1 . ", " .$param2 .", " . $param3 . ", " . $param4 . ", " . 
-			  $param5 . ", " . $param6 . ", " . $param7 . ", " . $param8;
+			      $param5 . ", " . $param6 . ", " . $param7 . ", " . $param8;
 
        }else if($op == "addStaff"){
-	        $param1 = mysqlquote($_POST['fname']);
+       	$param0 = mysqlquote($_POST['tittle']);
+	    $param1 = mysqlquote($_POST['fname']);
 	 	$param2 = mysqlquote($_POST['lname']);
 	 	$param3 = mysqlquote($_POST['email']);
 	 	$param4 = mysqlquote($_POST['dob']);
@@ -241,7 +256,7 @@
 		$param13 = mysqlquote($_POST['status']);
 		$param14 = mysqlquote(base64_encode(file_get_contents($_FILES['upload']['tmp_name'])));
 		
-	 	$params = $param1 . ", " . $param2 .", " .$param3 .", " . $param4 . ", " . $param5 . ", " . 
+	 	$params = $param0 . ", " .$param1 . ", " . $param2 .", " .$param3 .", " . $param4 . ", " . $param5 . ", " . 
                           $param6 . ", " . $param7 . ", " . $param8 . ", " . $param9 . ", " . $param10. ", ". 
                           $param11 . ", " . $param12 . ", " . $param13 . ", " . $param14;
 
@@ -301,6 +316,41 @@
 		$param1 = mysqlquote($_POST['cid']);
 		
 		$params = $param1;
+
+	}else if($op == "addSubject"){
+		$param1 = mysqlquote($_POST['subject']);
+		$param2 = mysqlquote($_POST['coef']);
+		
+		$params = $param1.",".$param2;
+
+    }else if($op == "removeSubject"){
+		$param1 = mysqlquote($_POST['rid']);
+		
+		$params = $param1;
+
+	}else if($op == "getMark"){
+		$param1 = mysqlquote($_POST['gid']);
+		
+		$params = $param1;
+
+    }else if($op == "addExamMark"){
+		$param1 = mysqlquote($_POST['typeid']);
+		$param2 = mysqlquote($_POST['student']);
+		$param3 = mysqlquote($_POST['subject']);
+		$param4 = mysqlquote($_POST['seq_1']);
+		$param5 = mysqlquote($_POST['seq_2']);
+				
+		$params = $param1.",".$param2.",".$param3.",".$param4.",".$param5;
+
+	}else if($op == "addExamtimetable"){
+		$param1 = mysqlquote($_POST['exam']);
+		$param2 = mysqlquote($_POST['type']);
+		$param3 = mysqlquote($_POST['name']);
+		$param4 = mysqlquote($_POST['start']);
+		$param5 = mysqlquote($_POST['end']);
+				
+		$params = $param1.",".$param2.",".$param3.",".$param4.",".$param5;
+
 	}else{
 		echo "Operation not implemented: {$op}";
 		exit(0);

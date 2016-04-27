@@ -74,30 +74,39 @@
   </div>
   
   <div class="row-fluid">
-    <div class="col-md-3">
+    <div class="col-md-6">
       <div class="form-group">
         <label for="h_addr">Address</label>
         <input type="text" class="form-control" id="h_addr"> 
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-6">
    <div class="form-group">
       <label for="medical">Medical Status</label>
       <select class="form-control" id="medical">
       </select>
     </div> 
   </div>
-  <div class="col-md-3">
+  </div>
+  <div class="row-fluid">
+  <div class="col-md-4">
     <div class="form-group">
         <label for="class_room">Class:</label>
-        <select class="form-control" id="class_room">
+        <select class="form-control" id="class_room1" onchange="getSubClass_of_class();">
      </select>  
     </div>
   </div>
-  <div class="col-md-3">
+   <div class="col-md-4">
+    <div class="form-group">
+        <label for="class_room">Sub_Class:</label>
+        <select class="form-control" id="class_room" >
+     </select>  
+    </div>
+  </div>
+  <div class="col-md-4">
     <div class="form-group">
       <label for="s_academic">Academic Year:</label>
-      <select class="form-control" id="s_academic">
+      <select class="form-control" id="s_academic" id="">
     </select>  
    </div>
   </div>
@@ -107,7 +116,6 @@
     <div class="col-md-12">
         <img id="blah" src="" alt="your image" height="60" width="60" style="border: none;"  />
     </form>
-    </div>
     </div>
 
 

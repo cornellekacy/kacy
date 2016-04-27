@@ -1,5 +1,5 @@
 -- ------------------------------------------------------------------------------------------------------------------
- --users 
+      --                                                 users 
 -- ------------------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------------
 -- Create the insertUser stored procedure.
@@ -14,7 +14,7 @@ CREATE PROCEDURE addUser(
 	IN lastname VARCHAR(45))   
 BEGIN                                                             
 	INSERT INTO users(`username`,`email`, `password`, `firstname`, `lastname`)
-	VALUES(username, email, password, firstname, lastname);
+	VALUES(username, email, PASSWORD(password), firstname, lastname);
 END $$ 
 
 
@@ -28,7 +28,7 @@ RETURNS BOOLEAN READS SQL DATA
  * check and return true if user is currently logged in, else false.
  */
 BEGIN
-	RETURN (SELECT COUNT(*) FROM userlog_time WHERE `username`= p_username AND ISNULL(LogoutTime));
+	RETURN (SELECT COUNT(*) FROM userlog_time WHERE `users_username`= p_username AND ISNULL(LogoutTime));
 END $$
 -- --------------------------------------------------------------------------
 -- userlogin
@@ -38,14 +38,14 @@ CREATE PROCEDURE loginUser(p_username VARCHAR(45),p_password VARCHAR(255))
 BEGIN	
 SELECT u.email,u.firstname, u.lastname,l.LoginTime
 FROM users u LEFT JOIN userlog_time l ON l.users_username=u.username
-WHERE (u.username=p_username AND u.password=p_password) AND l.LoginTime=
-	(select max(LoginTime) from userlog_time where password=p_password)
+WHERE (u.username=p_username AND u.password=PASSWORD(p_password)) AND l.LoginTime=
+	(select max(LoginTime) from userlog_time where users_username=p_username)
 		into @on,@fn,@ln,@lt;
 
 START TRANSACTION;
 	UPDATE userlog_time SET LogoutTime=NOW() WHERE users_username=p_username AND LogoutTime IS NULL;
-		INSERT INTO userlog_time(`users_username`,`users_password`,`LoginTime`, `LogoutTime`)
-		VALUES (p_username, p_password, NOW(), NULL);
+		INSERT INTO userlog_time(`users_username`,`LoginTime`, `LogoutTime`)
+		VALUES (p_username, NOW(), NULL);
 COMMIT;
 	-- return full names and time of last login
 IF (p_username and p_password) IS NOT NULL THEN
@@ -65,16 +65,20 @@ END $$
 -- --------------------------------------------------------------------------
 -- to change the password of a user
 -- --------------------------------------------------------------------------
-DROP PROCEDURE ChangeUserPassword $$
-CREATE PROCEDURE ChangeUserPassword(
-  p_username       VARCHAR(45),
-  p_OldPassword VARCHAR(255)  ,
-  p_NewPassword VARCHAR(255) )
+DROP PROCEDURE IF EXISTS ChangeUserPassword $$
+CREATE PROCEDURE ChangeUserPassword(IN p_username  VARCHAR(45),
+  IN p_Oldpassword VARCHAR(255)  ,
+  IN p_NewPassword VARCHAR(255) )
 BEGIN
-  UPDATE users
-    SET password = p_NewPassword
-    WHERE username = p_username
-    AND password = p_OldPassword;
+IF PASSWORD(p_Oldpassword)<>(SELECT `password` FROM users WHERE username=p_username) THEN
+	SET @ERRMSG:="Incorrect password, Please enter the correct password";
+		SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT =@ERRMSG;
+ELSE
+UPDATE users u
+SET password = PASSWORD(p_NewPassword)
+    WHERE username = p_username AND password = PASSWORD(p_Oldpassword);
+END IF;
 END $$
 
 
@@ -84,13 +88,8 @@ END $$
 DROP PROCEDURE IF EXISTS getUser $$
 CREATE PROCEDURE getUser(IN p_username VARCHAR(45))
 BEGIN 
-	SELECT  username,
-	email,
-	firstname,
-	password,
-	lastname
-	FROM users
-	WHERE username = p_username;
+	SELECT  username, email, firstname, password, lastname
+	FROM users u WHERE username = p_username;
 END $$
 
 -- ---------------------------------------------------------------
@@ -154,14 +153,31 @@ END $$
 -- ---------------------------------------------------------------
 -- Create the getStudent stored procedure.
 -- ---------------------------------------------------------------
+DROP FUNCTION IF EXISTS f_age $$
+CREATE FUNCTION f_age (p_dateofbirth datetime) returns int
+ NO SQL
+BEGIN
+ DECLARE l_age INT;
+
+IF DATE_FORMAT(NOW( ),'00-%m-%d') >= DATE_FORMAT(p_dateofbirth,'00-%m-%d') THEN
+-- This person has had a birthday this year
+SET l_age=DATE_FORMAT(NOW( ),'%Y')-DATE_FORMAT(p_dateofbirth,'%Y');
+ELSE
+-- Yet to have a birthday this year
+SET l_age=DATE_FORMAT(NOW( ),'%Y')-DATE_FORMAT(p_dateofbirth,'%Y')-1;
+END IF;
+RETURN(l_age);
+END;
+
+
 DROP PROCEDURE IF EXISTS getStudent $$
 CREATE PROCEDURE getStudent(IN p_studentId INT)
 BEGIN 
 	SELECT studentId,
-	firstname,
-	lastname, 
+	CONCAT(UPPER(firstname),' ', UPPER(lastname)) AS Name, 
 	gender_id,
-	dateofbirth AS DOB, 
+	dateofbirth AS DOB,
+	f_age(dateofbirth) AS age, 
 	placeofbirth AS POB,
 	rdescription,
 	email, 
@@ -199,10 +215,10 @@ CREATE PROCEDURE viewStudents()
 BEGIN 
 	SELECT 
 	studentId,
-	firstname,
-	lastname, 
+	CONCAT(UCASE(firstname),' ', UCASE(lastname)) AS Name,
 	gender_id,	
 	dateofbirth AS DOB, 
+	f_age(dateofbirth) AS age, 
 	placeofbirth AS POB,
 	rdescription,
 	email, 
@@ -365,7 +381,7 @@ DROP PROCEDURE IF EXISTS getClasslistperclass $$
 CREATE PROCEDURE getClasslistperclass(IN p_academic_id INT, IN p_classroom_id INT)
 BEGIN 
 	SELECT 
-	CONCAT(firstname,',',lastname) AS fullname,
+	CONCAT(firstname,' ',lastname) AS fullname,
 	classname,
 	gender_id,
 	schoolyear
@@ -389,7 +405,7 @@ CREATE PROCEDURE Generalclasslist (IN p_Clid INT, IN p_academic_id INT)
 BEGIN
 
      select 
-     CONCAT(firstname,',',lastname) AS fullname,   
+     CONCAT(firstname,' ',lastname) AS fullname,   
 	gender_id,
 	classname,
 	schoolyear
@@ -429,6 +445,19 @@ DROP PROCEDURE IF EXISTS getSubClass $$
 CREATE PROCEDURE getSubclass ()
 BEGIN 
 	SELECT `classId`, `classname` FROM classes_of_class;
+END $$
+
+DROP PROCEDURE IF EXISTS getSubClass_of_class $$
+CREATE PROCEDURE getSubClass_of_class (IN p_Clid INT)
+BEGIN 
+IF ISNULL(p_Clid) THEN
+	SET @ERRMSG = "there is no subclass with that type of ID";
+		SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT =@ERRMSG;
+ELSE
+	SELECT `classId`, `classname` FROM classes_of_class
+	WHERE classes_id = p_Clid;
+END IF;
 END $$
 
 -- --------------------------------------------------------------
@@ -561,6 +590,7 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXisTS addStaff $$
 CREATE PROCEDURE addStaff(
+	IN title     CHAR(4)                ,
 	IN firstname VARCHAR(45)            ,						-- input parameter
 	IN lastname VARCHAR(250)   	        ,						-- input parameter
 	IN email VARCHAR(250) 	 		    ,						-- input parameter
@@ -580,7 +610,6 @@ BEGIN
 	VALUES (firstname, lastname, email, dateofbirth, gender_id, placeofbirth, homeaddress, NICnumber, phonenumber, regionsoforigin_id, maritalstatus_MS, classmaster_id, staffstatus_id,Photo );
 END $$
 
-
 -- ---------------------------------------------------------------
 -- Create the getStaff stored procedure.
 -- ---------------------------------------------------------------
@@ -588,10 +617,10 @@ DROP PROCEDURE IF EXISTS getStaff $$
 CREATE PROCEDURE getStaff(IN p_staffId INT)
 BEGIN 
 	SELECT  p_staffId      ,
-	firstname 	           ,
-	lastname 	  	       ,
+	CONCAT(title,' ',firstname,' ', lastname) AS Name,
 	email  		           ,
 	dateofbirth 	       ,
+	f_age(dateofbirth) AS age, 
 	gender_id              ,
 	placeofbirth 		   ,
 	homeaddress 	   	   ,
@@ -625,10 +654,10 @@ CREATE PROCEDURE viewStaffs()
 BEGIN 
 	SELECT 
 	staffId   			   , 
-	firstname 	           ,
-	lastname 	  	       ,
+	CONCAT(title,' ',firstname,' ', lastname) AS Name,
 	email  		           ,
 	dateofbirth 	       , 
+	f_age(dateofbirth) AS age, 
 	gender_id              ,
 	placeofbirth 		   ,
 	homeaddress 	   	   ,
@@ -838,7 +867,7 @@ END $$
 -- see students mark
 -- -------------------------------------------------------------------
 DROP PROCEDURE IF EXISTS viewMarks $$
-CREATE PROCEDURE viewMarks()
+CREATE PROCEDURE viewMarks(IN subjects_id INT)
 BEGIN
 	SELECT 
 	examtypeId,
@@ -861,16 +890,16 @@ END $$
 
 
 DROP PROCEDURE IF EXISTS getMark $$
-CREATE PROCEDURE getMark(IN p_student_id INT, IN p_subjects_id INT)
+CREATE PROCEDURE getMark(IN p_student_id INT)
 BEGIN
 	SELECT 
 	examtypeId,
 	firstname,
 	subjectname,
 	seq_1,seq_2,
-	avg((seq_1+seq_2)/2.0),
-	Coeff,
-	sum((seq_1+seq_2)/2.0)
+	-- avg((seq_1+seq_2)/2.0) as average,
+	Coeff
+	-- sum(seq_1+seq_2) as total
 	-- ranking,
 	-- subj_cls_avg,
 	-- teacher_remarks       
@@ -878,6 +907,7 @@ BEGIN
 	INNER JOIN student S
 	ON S.studentId = ER.student_id
 	INNER JOIN subjects Subj
-	ON Subj.subjectId = ER.subjects_id;
+	ON Subj.subjectId = ER.subjects_id
+	WHERE student_id = p_student_id;
 END $$
 DELIMITER ;
