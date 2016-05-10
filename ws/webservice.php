@@ -90,6 +90,12 @@
        }else if($op == "loginUser"){
 		$param1 = mysqlquote($_POST['username']);
 		$param2 = mysqlquote($_POST['password']);
+
+
+		    $_SESSION['user_id'] = $param1['id'];
+			$_SESSION['user'] = ($_POST['username']);
+                
+		 // echo "Session variables are set.";
 		
 		$params = $param1 . ", " .$param2;
 
@@ -108,6 +114,11 @@
 	}else if($op == "logoutUser"){
 		$param1 = mysqlquote($_POST['l_id']);
 		
+        if (!empty($_SESSION['user_id'])) {
+		$_SESSION['user_id'] = '';
+	}
+	session_destroy();
+
 		$params = $param1;
 
 	}else if($op == "updateUser"){
@@ -119,14 +130,14 @@
 		$params = $param1.",".$param2.",".$param3.",".$param4;
 
     }else if($op == "getClasslistperclass"){
-		$param1 = mysqlquote($_POST['class_room']);
+		$param1 = mysqlquote($_POST['class1']);
 		$param2 = mysqlquote($_POST['p_academic_id']);
 		
 
 		$params = $param1.",".$param2;
 
 	}else if($op == "Generalclasslist"){
-		$param1 = mysqlquote($_POST['p_classroom_id']);
+		$param1 = mysqlquote($_POST['class_room1']);
 		$param2 = mysqlquote($_POST['p_academic_id']);
 		
 
@@ -357,8 +368,8 @@
 	}
 
 		
-	$mysqli = mysqli_connect("localhost", "root", "cornellekacy", "school");
-	if (mysqli_connect_errno($mysqli)) {
+	$con = mysqli_connect("localhost", "root", "cornellekacy", "school");
+	if (mysqli_connect_errno($con)) {
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		exit(0);
 	}
@@ -371,7 +382,7 @@
 	 // }
 
 	
-	$res = mysqli_query($mysqli, $sql);
+	$res = mysqli_query($con, $sql);
 	
 	if($res){
 		while($row = mysqli_fetch_assoc($res)){
@@ -381,9 +392,9 @@
 		echo json_encode($output);
 		
 	}else{
-		echo "Database query error Due To: " . mysqli_error($mysqli);
+		echo "Database query error Due To: " . mysqli_error($con);
 		exit(0);
 	}
 	
-	mysqli_close($mysqli);
+	mysqli_close($con);
 ?>

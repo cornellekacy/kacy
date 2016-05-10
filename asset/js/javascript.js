@@ -91,7 +91,7 @@ function loginUser(){
       }
       if (response) {
         console.log(response);
-         document.getElementById("login").reset();
+         // document.getElementById("login").reset();
           window.location.href ='index.php';
         // window.location.href = "/index.php";
       }
@@ -286,7 +286,7 @@ function updateUser(){
 }
 
 function getClasslistperclass(){
-  var classroom = document.getElementById('class_room').value;
+  var classroom = document.getElementById('class1').value;
   var academicyear = document.getElementById('p_academic_id').value;
 
 
@@ -294,7 +294,7 @@ function getClasslistperclass(){
   var fd = new FormData();
 
     fd.append('op', 'getClasslistperclass');
-    fd.append('class_room', classroom);
+    fd.append('class1', classroom);
     fd.append('p_academic_id', academicyear);
 
 
@@ -355,7 +355,7 @@ function getClasslistperclass(){
 }
 
 function Generalclasslist(){
-  var g_class = document.getElementById('p_classroom_id').value;
+  var g_class = document.getElementById('class_room1').value;
   var academicyear = document.getElementById('p_academic_id').value;
 
 
@@ -363,7 +363,7 @@ function Generalclasslist(){
    var fd = new FormData();
 
     fd.append('op', 'Generalclasslist');
-    fd.append('p_classroom_id', g_class);
+    fd.append('class_room1', g_class);
     fd.append('p_academic_id', academicyear);
 
 
@@ -386,7 +386,8 @@ function Generalclasslist(){
         // document.getElementById("gen_list").reset();
         // alert('User SUCCESSFULLY Updated');
         
-        // // window.location.href ='index.php';
+         // window.location.href ='content/gen_list.php';
+
 
 
         var tbody = document.getElementById('list');
@@ -742,12 +743,19 @@ function getClasses() {
         var f = document.getElementById('class_room1');
         var c = document.getElementById('u_class');
         var e = document.getElementById('p_classroom_id');
+        var d = document.getElementById('class');
 
 
         if (f) {
             f.length = 0;
             f.options[0] = new Option('select...', "", false, false);
         }
+
+         if (d) {
+            d.length = 0;
+            d.options[0] = new Option('select...', "", false, false);
+        }
+
 
         
         if (e) {
@@ -764,6 +772,8 @@ function getClasses() {
            if(f) f.options[i+1] = new Option(response[i].classname1, response[i].Clid, false, false);
            if(c) c.options[i+1] = new Option(response[i].classname1, response[i].Clid, false, false);
            if(e) e.options[i+1] = new Option(response[i].classname1, response[i].Clid, false, false);
+           if(d) d.options[i+1] = new Option(response[i].classname1, response[i].Clid, false, false);
+
 
             
          }
@@ -831,6 +841,7 @@ function getSubClass_of_class(p_Clid) {
 
 var p_Clid = document.getElementById('class_room1').value;
 
+
   var url ="ws/webservice.php" ; 
     var param4 = "op=getSubClass_of_class&cid="+ p_Clid;
 
@@ -850,11 +861,16 @@ var p_Clid = document.getElementById('class_room1').value;
 
               var f = document.getElementById('class_room');
 
-
+              var e = document.getElementById('class1');
 
          if (f) {
              f.length = 0;
              f.options[0] = new Option('select...', "", false, false);
+         }
+
+         if (e) {
+             e.length = 0;
+             e.options[0] = new Option('select...', "", false, false);
          }
 
         
@@ -862,9 +878,8 @@ var p_Clid = document.getElementById('class_room1').value;
 
           for (var i=0; i < response.length; i++) {
             if(f) f.options[i+1] = new Option(response[i].classname, response[i].classId, false, false);
-
-
-            
+            if(e) e.options[i+1] = new Option(response[i].classname, response[i].classId, false, false);
+  
           }
          
     }

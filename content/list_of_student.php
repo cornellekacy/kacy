@@ -23,10 +23,10 @@
  <table class="table">
   <thead>
   <tr>
-    <th>NO</th>
-    <th>Name</th>   
-    <th>Class</th>
+    <th>Name</th>
+    <th>Class</th>   
     <th>Gender</th>
+    <th>Year</th>
   </tr>
   </thead>
  <tbody id="per_class" style="text-transform: capitalize;">

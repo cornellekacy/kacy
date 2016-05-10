@@ -124,6 +124,12 @@
           $scope.$parent.title = "Add Exam Mark";
           $scope.$parent.img = "img/iconset-addictive-flavour-set/png/document_pen.png";
           $scope.$parent.showTopToggle = false;
+      }]) 
+
+      .controller('fee_paymentCtrl', ['$scope', function ($scope) {
+          $scope.$parent.title = "Payment slip";
+          $scope.$parent.img = "img/iconset-addictive-flavour-set/png/document_pen.png";
+          $scope.$parent.showTopToggle = false;
       }])  
  
 

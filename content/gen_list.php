@@ -23,7 +23,7 @@
  <table class="table">
   <thead>
   <tr>
-    <th>Name</th>   
+    <th>Name</th>    
     <th>Class</th>
     <th>Gender</th>
     <th>Academic year</th>

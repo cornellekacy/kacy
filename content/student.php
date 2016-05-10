@@ -99,7 +99,7 @@
    <div class="col-md-4">
     <div class="form-group">
         <label for="class_room">Sub_Class:</label>
-        <select class="form-control" id="class_room" >
+        <select class="form-control" id="class_room">
      </select>  
     </div>
   </div>

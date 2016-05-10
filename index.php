@@ -1,10 +1,23 @@
 
+<?php
+  session_start();
+
+  if (empty($_SESSION['user_id'])) {
+    header('location: login.php');
+  }
+  
+  $con = mysqli_connect("localhost","root","cornellekacy","school");
+  if (!$con) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp" ng-controller="AppCtrl">
 <head>
   
   <meta charset="utf-8">
-  <meta name="description" content="Quanteq school managment system v.1">
+  <meta name="description" content="Quanteq school managment system Version 1.0">
   <meta name="author" content="kacy">
   <meta name="keyword" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -76,10 +89,13 @@
 
               <ul class="nav navbar-nav navbar-right user-nav">
                 <li class="user-name"><span>
-                  <table>
-                  <tbody id="user">
-              </tbody>
-            </table>
+                  <?php
+                   // echo $_SESSION['user'];
+                  // var_dump($_SESSION); exit();
+                   echo "Welcome " . $_SESSION['user']. ".";
+                  // echo 'Hello';
+                  // echo 'Hello';
+              ?>
           </span>
                     </li>
 
@@ -147,14 +163,14 @@
                         <ul class="nav nav-list tree">
                         <li ng-class="{ selected: isActive('/staff_list')}"><a  href="#/staff_list" onclick="viewstaffs();">Staff List</a></li>
                         <li ng-class="{ selected: isActive('/student_list')}"><a href="#/student_list" onclick="viewStudents();">Student List</a></li>
-                        <li ng-class="{ selected: isActive('/class_list')}"><a href="#/class_list">Class List</a></li>
+                        <li ondbclick="ng-class="{ selected: isActive('/class_list')}""><a href="#/class_list">Class List</a></li>
                       </ul>
                     </li>
 
                     <li class="ripple"><a class="tree-toggle nav-header">
                         <span class="fa fa-pencil-square"></span> Payments  <span class="fa-angle-right fa right-arrow text-right"></span> </a>
                         <ul class="nav nav-list tree">
-                        <li><a href="">Fees Payment</a></li>
+                        <li ng-class="{ selected: isActive('/fee_payment')}"><a href="#/fee_payment">Fees Payment</a></li>
                         <li><a href="">Other Payment</a></li>
                   </ul>
                 </li>

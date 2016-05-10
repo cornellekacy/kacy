@@ -32,6 +32,7 @@ angular.module('myApp', [
         $routeProvider.when('/subject_class', {templateUrl: 'content/subject_class.php', controller: 'subject_classCtrl'});
         $routeProvider.when('/exam_time_table', {templateUrl: 'content/exam_time_table.php', controller: 'exam_time_tableCtrl'});
         $routeProvider.when('/add_exam_mark', {templateUrl: 'content/add_exam_mark.php', controller: 'add_exam_markCtrl'});
+        $routeProvider.when('/fee_payment', {templateUrl: 'content/fee_payment.php', controller: 'fee_paymentCtrl'});
 
 
 
