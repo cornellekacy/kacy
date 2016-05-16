@@ -71,29 +71,41 @@ border:none;
         <h4 class="modal-title">Student Profile</h4>
       </div>
       <div class="modal-body">
-  <div class="container">
-                  <div class="row">
-                  <div class="col-xs-12 col-sm-2">
+      <div class="container-fluid">
+                  <div class="row-fluid">
+                  <div class="col-xs-12 col-sm-3">
+                  <form id="picture"> 
+                  </form>
                   </div>
                         <div class="col-xs-12 col-sm-6">
-                           <table class='table table-borderless' style="border: none;">
+                           
+                          <div class="panel panel-default">
+                          <div class="panel-body">
+                          <table class='table table-borderless' style="border: none;">
                            <tbody id="table1">
                            </tbody>
-                             
-                           </table> 
+                          </table> 
+                          </div>
+                          </div>
+                           
                         </div><!--/col--> 
-                        <form id="pics">        
-                        <div class="col-xs-12 col-sm-4">
+                        <form id="pics">     
+                        <div class="col-xs-12 col-sm-3">
                              
                         </div><!--/col-->
                         </form> 
-
-         <ul class="nav nav-tabs" id="myTab">
+                        </div>
+                  <div class="col-xs-12 col-sm-2"></div>
+                  <div class="col-xs-12 col-sm-10">
+         <ul class="nav nav-tabs nav-justified">
         <li><a data-target="#home" data-toggle="tab">Home</a></li>
         <li><a data-target="#profile" data-toggle="tab">Profile</a></li>
         <li><a data-target="#messages" data-toggle="tab"  style="left: 10px;">Payement</a></li>
         <li><a data-target="#settings" data-toggle="tab">Peformance</a></li>
          </ul>
+         </div>
+         <div class="col-xs-12 col-sm-10">
+        
 
       <div class="tab-content"><br><br>
         <div class="tab-pane active" id="home"> <div class="centered">
@@ -124,6 +136,7 @@ border:none;
         </div>
         <div class="tab-pane" id="messages">Message</div>
         <div class="tab-pane" id="settings">Settings</div>
+         </div>
     
 
 
@@ -427,7 +440,7 @@ border:none;
       <select class="form-control" id="u_academic">
     </select>  
    </div>
-  </div>
+  </div><br>
   <form runat="server">
         <input type='file' id="u_upload1" style="margin-left: 15px;" />
         <br>

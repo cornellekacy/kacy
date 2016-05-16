@@ -39,8 +39,8 @@
 
 	   <div class="row-fluid">
 	    <div class="col-md-5"></div>
-	      <div class="col-md-3														">
-		    <button type="submit" class="btn btn-primary"><ng-class="{ selected: isActive('/list_of_student')}"><a href="#/list_of_student" onclick="getClasslistperclass();"  style="color:white;"> View general List</a></button>
+	      <div class="col-md-3">
+		    <button type="submit" class="btn btn-primary"><ng-class="{ selected: isActive('/list_of_student')}"><a href="#/list_of_student" onclick="getClasslistperclass();"  style="color:white;"> View general List</a>
 
 		     <!-- <button type="submit" class="btn btn-primary" onclick="Generalclasslist(); return false;">View general List</a></button> -->
 		 </div>

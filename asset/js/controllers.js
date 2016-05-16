@@ -17,6 +17,12 @@
         $scope.$parent.showTopToggle = false;
     }])
 
+    .controller('settingsCtrl', ['$scope', function ($scope) {
+        $scope.$parent.title = "Setting";
+        $scope.$parent.img = "img/iconset-addictive-flavour-set/png/button_red_add.png";
+        $scope.$parent.showTopToggle = false;
+    }])
+
     .controller('staff_listCtrl', ['$scope', function ($scope) {
         $scope.$parent.title = "Staff List";
         $scope.$parent.img = "img/iconset-addictive-flavour-set/png/document-plaid-pen.png";
@@ -61,7 +67,7 @@
          $scope.$parent.showTopToggle = false;
      }])
        .controller('setup_classCtrl', ['$scope', function ($scope) {
-         $scope.$parent.title = "Setup Class";
+         $scope.$parent.title = "System Setup";
          $scope.$parent.img = "img/iconset-addictive-flavour-set/png/moleskine_black.png";
          $scope.$parent.showTopToggle = false;
      }])
@@ -128,7 +134,7 @@
 
       .controller('fee_paymentCtrl', ['$scope', function ($scope) {
           $scope.$parent.title = "Payment slip";
-          $scope.$parent.img = "img/iconset-addictive-flavour-set/png/document_pen.png";
+          $scope.$parent.img = "img/iconset-addictive-flavour-set/png/credit-card_gold_visa.png";
           $scope.$parent.showTopToggle = false;
       }])  
  
@@ -138,7 +144,7 @@
             return viewLocation === $location.path();
         };
 
-        $scope.title = "Maverix Theme";
+        $scope.title = "Home";
         $scope.subNav1 = 0;
         $scope.img = "img/iconset-addictive-flavour-set/png/screen_aqua_glossy.png";
         $scope.showTopToggle = false;

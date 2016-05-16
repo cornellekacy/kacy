@@ -30,7 +30,7 @@
 	   <div class="row-fluid">
 	    <div class="col-md-5"></div>
 	      <div class="col-md-3														">
-		    <button type="submit" class="btn btn-primary"><ng-class="{ selected: isActive('/gen_list')}"><a href="#/gen_list" onclick="Generalclasslist();"  style="color:white;">View general List</a></button>
+		    <type="submit" class="btn btn-primary"><ng-class="{ selected: isActive('/gen_list')}"><a href="#/gen_list" onclick="Generalclasslist();"  style="color:white;">View general List</a>
 
 		     <!-- <button type="submit" class="btn btn-primary" onclick="Generalclasslist(); return false;">View general List</a></button> -->
 		 </div>

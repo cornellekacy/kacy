@@ -13,7 +13,7 @@
 	        <div class="panel-body">
 	          <div class="row-fluid">
 	            <div class="col-md-4">
-              <type="submit" class="btn btn-primary"><ng-class="{ selected: isActive('/general_class_list')}"><a href="#/general_class_list" style="color:white;">General Class List</a></button>
+              <type="submit" class="btn btn-primary"><ng-class="{ selected: isActive('/general_class_list')}"><a href="#/general_class_list" style="color:white;">General Class List</a>
               </div>
               <div class="col-md-4"></div>
                <div class="col-md-4">

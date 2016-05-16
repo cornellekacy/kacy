@@ -22,9 +22,11 @@
      <div class="col-md-6">
        <div class="form-group">
           <div class="form-group form-animate-text" style="margin-top:20px !important;">
-                    <input type="text" class="form-text" name="password" required>
+                   <select class="form-text" id="fee" name="regionoforigin">
+      </select>
                     <span class="bar"></span>
-                    <label>Password</label>
+                    <label>Class</label>
+
                   </div>
      </div>
    </div>
@@ -33,18 +35,18 @@
    <div class="row-fluid">
    <div class="col-md-6">
      <div class="form-group form-animate-text" style="margin-top:20px !important;">
-                    <input type="text" class="form-text" name="password" required>
+                    <input type="text" class="form-text" id="std_id" name="password" required>
                     <span class="bar"></span>
-                    <label>Password</label>
+                    <label>Student ID</label>
                   </div>
     </div>
   </div>
    <div class="col-md-6">
       <div class="form-group">
          <div class="form-group form-animate-text" style="margin-top:20px !important;">
-                    <input type="text" class="form-text" name="password" required>
+                    <input type="text" class="form-text" id="csh_name" name="password" required>
                     <span class="bar"></span>
-                    <label>Password</label>
+                    <label>Cashier Name</label>
                   </div>
     </div>
     </div>
@@ -52,9 +54,9 @@
    <div class="col-md-6">
       <div class="form-group">
           <div class="form-group form-animate-text" style="margin-top:20px !important;">
-                    <input type="text" class="form-text" name="password" required>
+                    <input type="text" class="form-text" id="amount" name="password" required>
                     <span class="bar"></span>
-                    <label>Password</label>
+                    <label>Amount</label>
                   </div>
     </div>
   </div>
@@ -62,9 +64,9 @@
    <div class="col-md-6">
       <div class="form-group">
         <div class="form-group form-animate-text" style="margin-top:20px !important;">
-                    <input type="text" class="form-text" name="password" required>
+                    <input type="text" class="form-text" id="paid_by" name="password" required>
                     <span class="bar"></span>
-                    <label>Password</label>
+                    <label>Paid By</label>
                   </div>
     </div>
     </div>

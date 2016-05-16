@@ -52,13 +52,22 @@
     <div class="col-sm-1">
     	
     </div>
+
     <div class="col-sm-12">
     <span style="float: right;"> 
+ <!--    <form action="php/profile.php" method="post">  
               <div class="search1">
-<input type="text" class="form-control input-sm" maxlength="64" placeholder="Search" />
+<input type="text" class="form-control input-sm" name="search" maxlength="64" placeholder="Search" />
  <button type="submit" class="btn1 btn-success btn-sm">Search</button>
 </div>
+</form> --> 
+ <form action="profile.php" method="post">  
+  <input type="text" name="search"><br>  
+  <input type="submit" value="search">
+</form>
+  
    </span>
+
           
  <table class="table">
   <thead>

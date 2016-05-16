@@ -2,16 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-	<style type="text/css">
-	</style>
-      <script type="text/javascript" src="asset/js/jquery-1.10.2.min.js"></script>
-      <script type="text/javascript" src="asset/js/bootstrapValidator.js"></script>
-      <script type="text/javascript" src="asset/js/pass_meter.js"></script>
-	<script type="text/javascript">
-
-	</script>
-	<style>
-	</style>
+<script type="text/javascript" src="asset/js/jquery-1.10.2.min.js"></script>
 	</head>
 	<body>
   <div class="row">
@@ -19,13 +10,13 @@
 	<div class="col-sm-8">
     <div class="panel panel-default">
 	<div class="panel-body">
-	<form id="add_form"  method="POST" onsubmit="addUser(); return false;" action="target.php">
+	<form id="add_form" onsubmit="addUser(); return false;" method="POST">
     <div class="alert alert-success" style="display: none;"></div>
    <div class="row-fluid">
      <div class="col-md-6">
        <div class="form-group">
           <label for="u_user">Username</label>
-          <input type="text" class="form-control" name="username" id="u_user">
+          <input type="text" class="form-control"  name="username" id="u_user">
      </div>
    </div>
    <div class="col-md-6">
@@ -48,7 +39,7 @@
   <div class="col-md-5">
     <div class="form-group">
       <label for="u_pass">Confirm-Password</label>
-       <input type="password" class="form-control" id="u_pass" name="confirm-password" required />
+       <input type="password" class="form-control" id="u_pass" name="confirmPassword" required />
        <div class="pwstrength_viewport_progress"></div>
    </div>
   </div>
@@ -140,24 +131,28 @@ $(document).ready(function() {
                         }
                     }
                 },
-               'password': {
+             password: {
                 validators: {
                     notEmpty: {
                         message: 'The password is required and can\'t be empty'
                     },
                     identical: {
-                        field: 'password',
+                        field: 'confirmPassword',
                         message: 'The password and its confirm are not the same'
+                    },
+                    different: {
+                        field: 'username',
+                        message: 'The password can\'t be the same as username'
                     }
                 }
             },
-            'confirm-Password': {
+            confirmPassword: {
                 validators: {
                     notEmpty: {
                         message: 'The confirm password is required and can\'t be empty'
                     },
                     identical: {
-                        field: 'confirm-password',
+                        field: 'password',
                         message: 'The password and its confirm are not the same'
                     }
                 }
@@ -174,17 +169,19 @@ $(document).ready(function() {
             }
 
         })
-         .on('success.form.bv', function(e) {
+        .on('success.form.bv', function(e) {
             // Prevent submit form
             e.preventDefault();
 
             var $form     = $(e.target),
                 validator = $form.data('bootstrapValidator');
-            $form.find('.alert').html('Registration succesfull. Now you can sign in as ' + validator.getFieldElements('username').val()).show();
+            $form.find('.alert').html('Thanks for signing up. Now you can sign in as ' + validator.getFieldElements('username').val()).show();
         });
 });
 
 </script>
+      <script type="text/javascript" src="asset/js/bootstrapValidator.js"></script>
+      <script type="text/javascript" src="asset/js/pass_meter.js"></script>
   </body>
   </html>
 

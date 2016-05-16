@@ -6,10 +6,25 @@
     header('location: login.php');
   }
   
-  $con = mysqli_connect("localhost","root","cornellekacy","school");
-  if (!$con) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+
+//   $inactive = 600;
+
+// // check to see if $_SESSION["timeout"] is set
+// if (isset($_SESSION["timeout"])) {
+//     // calculate the session's "time to live"
+//     $sessionTTL = time() - $_SESSION["timeout"];
+//     if ($sessionTTL > $inactive) {
+//         session_destroy();
+//         header("Location: login.php");
+//     }
+// }
+
+// $_SESSION["timeout"] = time();
+
+//   $con = mysqli_connect("localhost","root","cornellekacy","school");
+//   if (!$con) {
+//     die("Connection failed: " . mysqli_connect_error());
+// }
 ?>
 
 <!DOCTYPE html>
@@ -90,11 +105,7 @@
               <ul class="nav navbar-nav navbar-right user-nav">
                 <li class="user-name"><span>
                   <?php
-                   // echo $_SESSION['user'];
-                  // var_dump($_SESSION); exit();
-                   echo "Welcome " . $_SESSION['user']. ".";
-                  // echo 'Hello';
-                  // echo 'Hello';
+                   echo "Welcome " . $_SESSION['user'];   
               ?>
           </span>
                     </li>
@@ -107,7 +118,7 @@
               <li role="separator" class="divider"></li>
               <li class="more">
               <ul>
-              <li><a href=""><span class="fa fa-cogs"></span></a></li>
+              <li ng-class="{ selected: isActive('/setting')}"><a href="#/setting"><span class="fa fa-cogs"></span></a></li>
               <li><a href=""></a></li>
               <li><a href="" onclick="logoutUser(); return false;"><span class="fa fa-power-off "></span></a></li>
                       </ul>
@@ -151,8 +162,7 @@
                         <span class="fa-angle-right fa right-arrow text-right"></span></a>
                         <ul class="nav nav-list tree">
                         <li ng-class="{ selected: isActive('/adduser')}"><a href="#/adduser">Add User</a></li>
-                        <li ng-class="{ selected: isActive('/change_password')}"><a href="#/change_password">Change Password</a></li>
-                        <li ng-class="{ selected: isActive('/update_user')}"><a href="#/update_user">Update User</a></li>
+      
                       </ul>
                     </li>
 
@@ -163,7 +173,7 @@
                         <ul class="nav nav-list tree">
                         <li ng-class="{ selected: isActive('/staff_list')}"><a  href="#/staff_list" onclick="viewstaffs();">Staff List</a></li>
                         <li ng-class="{ selected: isActive('/student_list')}"><a href="#/student_list" onclick="viewStudents();">Student List</a></li>
-                        <li ondbclick="ng-class="{ selected: isActive('/class_list')}""><a href="#/class_list">Class List</a></li>
+                        <li ng-class="{ selected: isActive('/content/class_list')}"><a href="#/class_list">Class List</a></li>
                       </ul>
                     </li>
 
@@ -191,7 +201,6 @@
                     <li><a href="">View Marks</a></li>
                     <li><a href="">Exam Result</a></li>
                     <li><a href="">View Subjects</a></li>
-                    <li><a href="">Get Mark</a></li>
                     
                     
                   </ul>
@@ -255,7 +264,6 @@
        <!-- end: Mobile -->
  
     <!-- start: Javascript -->
-
     <script type="text/javascript" src="asset/js/jquery-1.10.2.min.js"></script>
     <!-- <script src="asset/js/jquery.min.js"></script> -->
      <script type="text/javascript" src="asset/js/bootstrapValidator.js"></script>

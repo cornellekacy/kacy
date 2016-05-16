@@ -744,6 +744,7 @@ function getClasses() {
         var c = document.getElementById('u_class');
         var e = document.getElementById('p_classroom_id');
         var d = document.getElementById('class');
+         var q = document.getElementById('fee');
 
 
         if (f) {
@@ -768,11 +769,18 @@ function getClasses() {
             c.options[0] = new Option('select...', "", false, false);
         }
 
+        if (q) {
+            q.length = 0;
+            q.options[0] = new Option('select...', "", false, false);
+        }
+
          for (var i=0; i < response.length; i++) {
            if(f) f.options[i+1] = new Option(response[i].classname1, response[i].Clid, false, false);
            if(c) c.options[i+1] = new Option(response[i].classname1, response[i].Clid, false, false);
            if(e) e.options[i+1] = new Option(response[i].classname1, response[i].Clid, false, false);
            if(d) d.options[i+1] = new Option(response[i].classname1, response[i].Clid, false, false);
+           if(q) q.options[i+1] = new Option(response[i].classname1, response[i].Clid, false, false);
+
 
 
             
@@ -1677,8 +1685,10 @@ function getStudent(p_studentId) {
            var form = document.getElementById('up_student');
            var tbody = document.getElementById('table1');
            if (tbody) tbody.innerHTML='';
-           var form1 = document.getElementById('pics');
-           if (form1) form1.innerHTML='';
+            var form1 = document.getElementById('pics');
+            if (form1) form1.innerHTML='';
+            var form3 = document.getElementById('picture');
+            if (form3) form3.innerHTML='';
            var form2 = document.getElementById('std_head');
            if (form2) form2.innerHTML='';
 
@@ -1700,12 +1710,19 @@ function getStudent(p_studentId) {
                document.getElementById('u_class').value = response[i].classroom_id;
                document.getElementById('u_academic').value = response[i].academic_id;
 
-         var image = document.createElement('img');
-           image.src = "data:image/png;base64," +response[i].Photo;
-           image.width='200';
-           image.height='190';
+          var image = document.createElement('img');
+            image.src = "data:image/png;base64," +response[i].Photo;
+            image.width='200';
+            image.height='190';
 
-           form1.appendChild(image);
+            form1.appendChild(image);
+
+            var image = document.createElement('img');
+            image.src = "data:image/png;base64," +response[i].Photo;
+            image.width='200';
+            image.height='190';
+
+            form3.appendChild(image);
 
           var row = document.createElement('tr');
           var row1 = document.createElement('tr');
@@ -1937,9 +1954,9 @@ function viewStudents() {
           email_td.innerHTML = response[i].email;
           row.appendChild(email_td);
 
-          var edit_td = document.createElement("td");
-          edit_td.innerHTML = "<a href='/edit_student/"+response[i].studentId+"/' onclick='getStudent("+currentstudentId+");return false;' ><i class='edit icon'></i>Edit</a>"
-          row.appendChild(edit_td);
+          var pay_td = document.createElement("td");
+          pay_td.innerHTML = "<a href='/edit_student/"+response[i].studentId+"/' onclick='getStudent("+currentstudentId+");return false;' ><i class='edit icon'></i>Pay Fee</a>"
+          row.appendChild(pay_td);
 
           var delete_td = document.createElement("td");
           delete_td.innerHTML = "<a href='/delete_student/"+response[i].studentId+"/' onclick='deleteStudent("+currentstudentId+");return false;'><i class='remove icon'></i>Delete</a>"
@@ -2322,6 +2339,8 @@ function addSubject() {
    xmlhttp.send(fd);
    }
 
+
+
    function addExamtimetable() {
 
     var examId = document.getElementById('exam').value;
@@ -2470,6 +2489,86 @@ function addSubject() {
    xmlhttp.open('POST', url, true);
    xmlhttp.send(fd);
    }
+
+
+   function feepayment() {
+     var d = document;
+     var g = getElementById;
+
+    var classId = d.getElementById('fee').value;
+    var student_studentId = d.getElementById('std_id').value;
+    var cashier_name = d.getElementById('csh_name').value;
+    var amount = d.getElementById('amount').value;
+    var paid_by = d.getElementById('paid_by').value;
+    
+    var url ="ws/webservice.php" ; 
+    var fd = new FormData();
+
+    
+
+    fd.append("op", "feepayment");
+    fd.append("fee", classId);
+    fd.append("std_id", student_studentId);
+    fd.append("csh_name", cashier_name);
+    fd.append("amount", amount);
+    fd.append("paid_by", paid_by);
+
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+       {
+    var response;
+    try {
+      
+        response = JSON.parse(xmlhttp.responseText);
+        }    
+   catch(e) {
+        console.error(this.responseText);
+        }
+    if (response) {
+        console.log(response);
+        
+        }
+     }
+
+   };
+
+   xmlhttp.open('POST', url, true);
+   xmlhttp.send(fd);
+   }
+
+    // viewFeepay();
+   function viewFeepay() {
+    
+    var url ="ws/webservice.php" ; 
+    var fd = new FormData();
+
+    fd.append("op", "viewFeepay");
+
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+       {
+    var response;
+    try {
+      
+        response = JSON.parse(xmlhttp.responseText);
+        }    
+   catch(e) {
+        console.error(this.responseText);
+        }
+    if (response) {
+        console.log(response);
+        
+        }
+     }
+
+   };
+
+   xmlhttp.open('POST', url, true);
+   xmlhttp.send(fd);
+   }
+
 
 
 

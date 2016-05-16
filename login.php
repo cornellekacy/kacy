@@ -5,11 +5,10 @@
         header('location: index.php');
     }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>Welcome To Q-SMS Login Page</title>
   <link rel="stylesheet" type="text/css" href="asset/css/bootstrap.min.css">
   <link href="asset/css/style.css" rel="stylesheet">
    <link href="asset/css/login_style.css" rel="stylesheet">
@@ -17,8 +16,8 @@
 <body>
   <div class="wrapper">
     <form id="login" onsubmit="loginUser(); return false;" action="" method="post" class="form-signin">     <div class="panel-body text-center">
-                  <h2 class="atomic-symbol">SMS</h2>
-                  <p class="element-name">Welcome to Quanteq school Management System</p>
+                  <h3 class="atomic-symbol">Q-SMS</h3>
+                  <p class="element-name">Welcome to Quanteq School Management System</p>
        <div class="form-group form-animate-text" style="margin-top:20px !important;">
                     <input type="text" class="form-text" id="username" required>
                     <span class="bar"></span>
@@ -36,7 +35,7 @@
       </label>
       </div>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
+      <button class="btn btn-lg  btn-block" type="submit">Login</button>   
 
     </form>
   </div>

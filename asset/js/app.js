@@ -12,12 +12,14 @@ angular.module('myApp', [
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/home', {templateUrl: 'content/home.php', controller: 'homeCtrl'});
         $routeProvider.when('/student_enrollment', {templateUrl: 'content/student_enrollment.php', controller: 'student_enrollmentCtrl'});
-        $routeProvider.when('/change_pass', {templateUrl: 'admin/change_pass.php', controller: 'change_passCtrl'});
+        $routeProvider.when('/setting', {templateUrl: 'content/setting.php', controller: 'settingCtrl'});
+        $routeProvider.when('/change_pass', {templateUrl: 'admin/change_pass.php', controller: 'settingCtrl'});
         $routeProvider.when('/staff', {templateUrl: 'content/staff.php', controller: 'staffCtrl'});
         $routeProvider.when('/staff_list', {templateUrl: 'content/staff_list.php', controller: 'staff_listCtrl'});
         $routeProvider.when('/staff_profile', {templateUrl: 'admin/staff_profile', controller: 'staff_profileCtrl'});
         $routeProvider.when('/student', {templateUrl: 'content/student.php', controller: 'studentCtrl'});
-        $routeProvider.when('/student_list', {templateUrl: 'content/student_list.php', controller: 'student_listCtrl'});
+        // $routeProvider.when('/student_list', {templateUrl: 'content/student_list.php', controller: 'student_listCtrl'});
+        $routeProvider.when('/student_list', {templateUrl: 'student_list.php', controller: 'student_listCtrl'});
         $routeProvider.when('/staff_profile', {templateUrl: 'content/staff_profile.php', controller: 'staff_profileCtrl'});
         $routeProvider.when('/staff_enrollment', {templateUrl: 'content/staff_enrollment.php', controller: 'staff_enrollmentCtrl'});
         $routeProvider.when('/class_list', {templateUrl: 'content/class_list.php', controller: 'class_listCtrl'});

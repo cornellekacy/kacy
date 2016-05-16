@@ -59,6 +59,8 @@
                      "addExamMark"=>"addExamMark",
                      "viewMarks"=>"viewMarks",
                      "getMark"=>"getMark",
+                     "feepayment"=>"feepayment",
+                     "viewFeepay"=>"viewFeepay",
 					 "Classlist"=>"Classlist");
 
 	if(!isset($opProc[$op])){
@@ -71,7 +73,7 @@
 	$params = "";
 
 	if(
-		$op == "getgendertype" || $op == "getsubjects" || $op == "getregionsoforigin" || 
+		$op == "getgendertype" || $op == "getsubjects" || $op == "viewFeepay" ||  $op == "getregionsoforigin" || 
 		$op == "getClasses" || $op == "getmaritalstatus" ||  $op == "getstaffstatus" || $op == "getclassmaster" || $op == "getSubclass" || $op == "viewSubjects" || $op == "getExamtype" || $op == "viewMarks" ||
 		$op == "viewstaffs" || $op == "viewStudents" || $op == "viewStudents" || $op == "getMedicalstatus" || $op == "getacademic" || $op == "Academicyear"){
 
@@ -81,18 +83,19 @@
 		$param1 = mysqlquote($_POST['u_user']);
 		$param2 = mysqlquote($_POST['u_email']);
 		$param3 = mysqlquote($_POST['u_pass']);
+		// $param3 = md5($param3);
 		$param4 = mysqlquote($_POST['u_fname']);
 		$param5 = mysqlquote($_POST['u_lname']);
 		
 		$params = $param1 . ", " .$param2 .", ".
-                          $param3.", ".$param4.", ".$param5;
+        $param3.", ".$param4.", ".$param5;
 
        }else if($op == "loginUser"){
 		$param1 = mysqlquote($_POST['username']);
 		$param2 = mysqlquote($_POST['password']);
 
 
-		    $_SESSION['user_id'] = $param1['id'];
+		    $_SESSION['user_id'] = $param1;
 			$_SESSION['user'] = ($_POST['username']);
                 
 		 // echo "Session variables are set.";
@@ -113,11 +116,14 @@
 
 	}else if($op == "logoutUser"){
 		$param1 = mysqlquote($_POST['l_id']);
-		
+
+		unset($_SESSION['user_id']);
+
         if (!empty($_SESSION['user_id'])) {
 		$_SESSION['user_id'] = '';
 	}
 	session_destroy();
+
 
 		$params = $param1;
 
@@ -135,6 +141,15 @@
 		
 
 		$params = $param1.",".$param2;
+
+	}else if($op == "feepayment"){
+		$param1 = mysqlquote($_POST['fee']);
+		$param2 = mysqlquote($_POST['std_id']);
+		$param1 = mysqlquote($_POST['csh_name']);
+		$param2 = mysqlquote($_POST['amount']);
+		$param1 = mysqlquote($_POST['paid_by']);
+
+		$params = $param1.",".$param2.",".$param3.",".$param4.",".$param5;
 
 	}else if($op == "Generalclasslist"){
 		$param1 = mysqlquote($_POST['class_room1']);
